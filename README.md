@@ -1,1 +1,2 @@
 # fnf-mod-generator
+サンプルです
