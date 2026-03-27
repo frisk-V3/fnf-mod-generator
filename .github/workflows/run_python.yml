@@ -1,25 +1,31 @@
 name: Generate FNF Mod ZIP
 
 on:
-  workflow_dispatch: # 手動でボタンを押して実行
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt;首fi
 
       - name: Run script
-        run: python your_script.py # ここを実際のファイル名に合わせてください
+        run: python main.py
 
-      - name: Upload ZIP Artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: my-cool-mod-zip  # ダウンロード時の名前
-          path: my-cool-mod.zip  # スクリプトで生成されるファイル名
+          name: my-cool-mod-zip
+          path: my-cool-mod.zip
+          if-no-files-found: error
