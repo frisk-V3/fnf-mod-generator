@@ -1,0 +1,25 @@
+name: Generate FNF Mod ZIP
+
+on:
+  workflow_dispatch: # 手動でボタンを押して実行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run script
+        run: python your_script.py # ここを実際のファイル名に合わせてください
+
+      - name: Upload ZIP Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-cool-mod-zip  # ダウンロード時の名前
+          path: my-cool-mod.zip  # スクリプトで生成されるファイル名
